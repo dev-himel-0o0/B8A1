@@ -25,3 +25,23 @@ const multiplyValue = (value: number, multiplier: number = 2): number =>
 ```
 
 I also added `+ 0` at the end so that if a negative number is multiplied by `0` (like `multiplyValue(-7, 0)`), it returns a normal `0` instead of JavaScript's `-0` 👌.
+
+### Problem 2: `processInput`
+
+For this problem, the problem statement specifically says to write the union types for both the function parameter and the return type. So, I declared two separate union type aliases: `TValue` (`string | number | boolean`) for the input parameter and `TReturnValue` (`string | number`) for the return value 😊.
+
+```ts
+type TValue = string | number | boolean;
+type TReturnValue = string | number;
+
+const processInput = (value: TValue): TReturnValue => {
+  if (typeof value === "string") return value.trim().toLowerCase();
+  if (typeof value === "number") return value * 10 + 0;
+  return value ? "Active" : "Inactive";
+};
+```
+
+**Key details and edge cases handled:**
+
+- **Why `+ 0` is used for numbers:** Just like in **Problem 1**, I added `+ 0` so that if `-0` is passed in, it returns a normal `0` instead of `-0` 😉.
+- **Why there is no third `if` check:** Since `value` can only be a `string`, `number`, or `boolean`, after checking the first two types, TypeScript already knows the last one must be a `boolean`. So I don't need another `if` check and can just use a simple ternary (`value ? "Active" : "Inactive"`) 😁.
