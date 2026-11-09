@@ -50,6 +50,7 @@ class Employee {
     return `Employee: ${this.name}, Base Salary: ${this.baseSalary}`;
   }
 }
+
 class Manager extends Employee {
   constructor(
     name: string,
@@ -63,3 +64,15 @@ class Manager extends Employee {
     return `Manager of ${this.department}: ${this.name}`;
   }
 }
+
+const validateAgeAsync = async (age: number): Promise<string> => {
+  try {
+    if (age < 18) {
+      throw new Error("Access Denied: Must be 18 or older");
+    }
+    await new Promise<void>((resolve) => setTimeout(resolve, 1000));
+    return "Access Granted";
+  } catch (error) {
+    return error instanceof Error ? `Error: ${error.message}` : "";
+  }
+};

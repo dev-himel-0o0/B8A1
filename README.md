@@ -162,3 +162,26 @@ class Manager extends Employee {
 
 - **Why `protected` and `private` modifiers are used:** `protected` and `private` is used for security purposes. In `Employee`, `baseSalary` is marked `private` so it can only be used inside the `Employee` class itself like in `getDetails()`. On the other hand, `name` is marked `protected` so that both `Employee` and any child class like `Manager` can access `this.name` inside `getRoleInfo()` 😊.
 - **Why `super()` is used:** In `Manager` class `name` and `baseSalary` are received as parameters and passed to `super(name, baseSalary)` so the parent `Employee` class handles the initialization. We use `super()` to run the parent class constructor so we don't have to initialize the parent class properties again. 👌.
+
+### Problem 8: `validateAgeAsync`
+
+For this problem, the goal was to create an async function `validateAgeAsync` that accepts a number `age` and returns a `Promise<string>`, resolving after 1 second with `"Access Granted"` for age 18 or above, and rejecting immediately with an `Error` for age less than 18 `new Error("Access Denied: Must be 18 or older")` 🙂.
+
+```ts
+const validateAgeAsync = async (age: number): Promise<string> => {
+  try {
+    if (age < 18) {
+      throw new Error("Access Denied: Must be 18 or older");
+    }
+    await new Promise<void>((resolve) => setTimeout(resolve, 1000));
+    return "Access Granted";
+  } catch (error) {
+    return error instanceof Error ? `Error: ${error.message}` : "";
+  }
+};
+```
+
+**Key details and edge cases handled:**
+
+- **Why `async/await` is used instead of `new Promise`:** Our function is already marked as `async`, it automatically wraps the return value in a `Promise` for us. Using `async/await` lets us write clean code without deeply nested `resolve` and `reject` callbacks 😊.
+- **Why `await new Promise<void>(...)` with `setTimeout` is used:** In the requirement it clearly says use `setTimeout`. If `age` is `18` or older, the function pauses for 1 second (`1000` ms) by awaiting a Promise that resolves after `setTimeout` finishes, and then returns `"Access Granted"` as a resolved `Promise<string>` 👌.
