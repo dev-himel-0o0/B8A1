@@ -45,3 +45,21 @@ const processInput = (value: TValue): TReturnValue => {
 
 - **Why `+ 0` is used for numbers:** Just like in **Problem 1**, I added `+ 0` so that if `-0` is passed in, it returns a normal `0` instead of `-0` 😉.
 - **Why there is no third `if` check:** Since `value` can only be a `string`, `number`, or `boolean`, after checking the first two types, TypeScript already knows the last one must be a `boolean`. So I don't need another `if` check and can just use a simple ternary (`value ? "Active" : "Inactive"`) 😁.
+
+### Problem 3: `formatCoordinate`
+
+For this problem, the goal was to take a coordinate and location name tuple containing `[latitude, longitude, locationName]` `([number, number, string])` and return a formatted string like `"Location: Dhaka (23.81, 90.41)"`, the requirement says to apply the `readonly` modifier to the `tuple` parameter so it cannot be `mutated` inside the function 🙂.
+
+```ts
+type TCoordinateAndLocationName = readonly [number, number, string];
+
+const formatCoordinate = (locationData: TCoordinateAndLocationName): string => {
+  const [latitude, longitude, locationName] = locationData;
+  return `Location: ${locationName} (${latitude},${longitude})`;
+};
+```
+
+**Key details and edge cases handled:**
+
+- **Why `readonly` tuple type (`TCoordinateAndLocationName`) is used:** Adding `readonly` before `[number, number, string]` locks the `tuple` structure so that the fixed order and types are strictly checked, and any accidental changes inside the function (like reassigning an index or using `.push()` or something like that) are blocked by `TypeScript` 😊.
+- **Why destructuring and template literals are used:** Destructuring `const [latitude, longitude, locationName] = locationData` makes it easy to place `latitude, longitude, locationName` all these where ever I want to formate the string. Using a template literal also keeps the exact decimal values and automatically turns `-0` into `"0"` 👌.
