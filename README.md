@@ -84,16 +84,16 @@ const concatenateArrays = <T>(...arrays: T[][]): T[] => {
 For this problem, the goal was to define a `Course` interface and create a function `getPopularCourses` that takes an array of courses and a `minStudents` number, then returns a new array with only the courses that are published and have at least `minStudents` without `mutating` the original array 🙂.
 
 ```ts
-interface Course {
+interface ICourse {
   title: string;
   students: number;
   isPublished: boolean;
 }
 
 const getPopularCourses = (
-  courses: Course[],
+  courses: ICourse[],
   minStudents: number,
-): Course[] => {
+): ICourse[] => {
   return courses.filter(
     (course) => course.isPublished && course.students >= minStudents,
   );
