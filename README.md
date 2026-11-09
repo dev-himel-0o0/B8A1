@@ -126,3 +126,39 @@ const pluckValues = <T, K T extends keyof>(items: T[], key: K): T[K][] => {
 | `K`      | A property key of `T`                            |
 | `T[K]`   | The type of the selected property                |
 | `T[K][]` | An array of values of the selected property type |
+
+### Problem 7: `Employee` and `Manager` Classes
+
+For this problem, the goal was to create a base `Employee` class and a `Manager` subclass using inheritance (`extends`), while applying the exact `protected` and `private` access modifiers to their properties 🙂.
+
+```ts
+class Employee {
+  constructor(
+    protected name: string,
+    private baseSalary: number,
+  ) {}
+
+  getDetails(): string {
+    return `Employee: ${this.name}, Base Salary:${this.baseSalary}`;
+  }
+}
+
+class Manager extends Employee {
+  constructor(
+    name: string,
+    baseSalary: number,
+    private department: string,
+  ) {
+    super(name, baseSalary);
+  }
+
+  getRoleInfo(): string {
+    return `Manager of ${this.department}:${this.name}`;
+  }
+}
+```
+
+**Key details and edge cases handled:**
+
+- **Why `protected` and `private` modifiers are used:** `protected` and `private` is used for security purposes. In `Employee`, `baseSalary` is marked `private` so it can only be used inside the `Employee` class itself like in `getDetails()`. On the other hand, `name` is marked `protected` so that both `Employee` and any child class like `Manager` can access `this.name` inside `getRoleInfo()` 😊.
+- **Why `super()` is used:** In `Manager` class `name` and `baseSalary` are received as parameters and passed to `super(name, baseSalary)` so the parent `Employee` class handles the initialization. We use `super()` to run the parent class constructor so we don't have to initialize the parent class properties again. 👌.
