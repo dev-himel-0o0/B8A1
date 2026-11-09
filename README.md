@@ -103,4 +103,26 @@ const getPopularCourses = (
 **Key details and edge cases handled:**
 
 - **Why `interface Course` is used:** The problem statement specifically asked to define a `Course` interface with `title`, `students`, and `isPublished`. Using `Course[]` for both the `courses` parameter and the return type makes sure every course object has the exact same types 😊.
-- **Why `.filter()` used:** The `.filter()` method automatically creates and returns a brand-new array without `mutating` the original `courses` array, which fulfil the requirement not to `mutate` the original input array 👌.
+- **Why `.filter()` is used:** The `.filter()` method automatically creates and returns a brand-new array without `mutating` the original `courses` array, which fulfil the requirement not to `mutate` the original input array 👌.
+
+### Problem 6: `pluckValues`
+
+For this problem, the goal was to create a generic function `pluckValues` that takes an array of objects `items: T[]` and a property key `key: K`, then returns a new array `T[K][]` containing the values of that specific property from each object in the same order 🙂.
+
+```ts
+const pluckValues = <T, K T extends keyof>(items: T[], key: K): T[K][] => {
+  return items.map((item) => item[key]);
+};
+```
+
+**Key details and edge cases handled:**
+
+- **Why `<T, K extends keyof T>` is used:** The `<T>` is the object type, and `K extends keyof T` is the second parameter `key` can only be a valid property name that actually exists on those objects. If someone passes a key that is not in the object, TypeScript catches it as a compile-time error 😊.
+- **Why `.map()` & `T[K][]` are used:** The `.map()` method loops through each item and take out all the property value into a brand new array without modifying the original data. For `T[K][]` lets break it down in a simple table because in plain text it looks confusing so, i am representing this in a simple table below 👇:
+
+| Type     | Meaning                                          |
+| -------- | ------------------------------------------------ |
+| `T`      | The complete object type                         |
+| `K`      | A property key of `T`                            |
+| `T[K]`   | The type of the selected property                |
+| `T[K][]` | An array of values of the selected property type |
