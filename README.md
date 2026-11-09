@@ -78,3 +78,29 @@ const concatenateArrays = <T>(...arrays: T[][]): T[] => {
 
 - **Why `<T>` and rest parameters (`...arrays: T[][]`) are used:** The problem statement itself tells to use same type `T` using rest parameters `(...arrays: T[][])`. So, by using `<T>` makes sure that all arrays passed into the function are exact same type of items without using `any` as the requirement says not to use `any` type.What the rest parameter is doing it collects all the separate array arguments into a single 2D array (`T[][]`) and also handles the cases where only one array, empty arrays, or even zero arguments are passed in to the function 😊.
 - **Why `arrays.flat()` is used:** The `flat()` method combines nested arrays into a single array by removing one level of nesting. What the problem statement is telling us to do the `flat()` method is the perfect method to solve this kind of problem without using any kind of manual effort 👌.
+
+### Problem 5: `getPopularCourses`
+
+For this problem, the goal was to define a `Course` interface and create a function `getPopularCourses` that takes an array of courses and a `minStudents` number, then returns a new array with only the courses that are published and have at least `minStudents` without `mutating` the original array 🙂.
+
+```ts
+interface Course {
+  title: string;
+  students: number;
+  isPublished: boolean;
+}
+
+const getPopularCourses = (
+  courses: Course[],
+  minStudents: number,
+): Course[] => {
+  return courses.filter(
+    (course) => course.isPublished && course.students >= minStudents,
+  );
+};
+```
+
+**Key details and edge cases handled:**
+
+- **Why `interface Course` is used:** The problem statement specifically asked to define a `Course` interface with `title`, `students`, and `isPublished`. Using `Course[]` for both the `courses` parameter and the return type makes sure every course object has the exact same types 😊.
+- **Why `.filter()` used:** The `.filter()` method automatically creates and returns a brand-new array without `mutating` the original `courses` array, which fulfil the requirement not to `mutate` the original input array 👌.
