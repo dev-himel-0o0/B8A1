@@ -63,3 +63,18 @@ const formatCoordinate = (locationData: TCoordinateAndLocationName): string => {
 
 - **Why `readonly` tuple type (`TCoordinateAndLocationName`) is used:** Adding `readonly` before `[number, number, string]` locks the `tuple` structure so that the fixed order and types are strictly checked, and any accidental changes inside the function (like reassigning an index or using `.push()` or something like that) are blocked by `TypeScript` 😊.
 - **Why destructuring and template literals are used:** Destructuring `const [latitude, longitude, locationName] = locationData` makes it easy to place `latitude, longitude, locationName` all these where ever I want to formate the string. Using a template literal also keeps the exact decimal values and automatically turns `-0` into `"0"` 👌.
+
+### Problem 4: `concatenateArrays`
+
+For this problem, the goal was to create a generic function `concatenateArrays` that takes multiple arrays of the same type `T` using rest parameters (`...arrays: T[][]`) and merges them into a single array in the exact order they were passed 🙂.
+
+```ts
+const concatenateArrays = <T>(...arrays: T[][]): T[] => {
+  return arrays.flat();
+};
+```
+
+**Key details and edge cases handled:**
+
+- **Why `<T>` and rest parameters (`...arrays: T[][]`) are used:** The problem statement itself tells to use same type `T` using rest parameters `(...arrays: T[][])`. So, by using `<T>` makes sure that all arrays passed into the function are exact same type of items without using `any` as the requirement says not to use `any` type.What the rest parameter is doing it collects all the separate array arguments into a single 2D array (`T[][]`) and also handles the cases where only one array, empty arrays, or even zero arguments are passed in to the function 😊.
+- **Why `arrays.flat()` is used:** The `flat()` method combines nested arrays into a single array by removing one level of nesting. What the problem statement is telling us to do the `flat()` method is the perfect method to solve this kind of problem without using any kind of manual effort 👌.
