@@ -2,6 +2,8 @@
 
 🚀 Next Level 🤖 Mission_01 🎯 Assignment_01 🧑‍💻
 
+## Assignment Overview
+
 ### Problem 1: `multiplyValue`
 
 For this problem, the goal was to create a function `multiplyValue` that accepts a number `value` and an optional number `multiplier` also need to handle `0` properly when passed as `multiplier` (multiplying by `0` must return `0`) 🙂.
@@ -185,3 +187,8 @@ const validateAgeAsync = async (age: number): Promise<string> => {
 
 - **Why `async/await` is used instead of `new Promise`:** Our function is already marked as `async`, it automatically wraps the return value in a `Promise` for us. Using `async/await` lets us write clean code without deeply nested `resolve` and `reject` callbacks 😊.
 - **Why `await new Promise<void>(...)` with `setTimeout` is used:** In the requirement it clearly says use `setTimeout`. If `age` is `18` or older, the function pauses for 1 second (`1000` ms) by awaiting a Promise that resolves after `setTimeout` finishes, and then returns `"Access Granted"` as a resolved `Promise<string>` 👌.
+
+## Blog Posts
+
+1. [Type Aliases vs Interfaces in TypeScript](./type-vs-interface.md)
+2. [Access Modifiers in TypeScript OOP](./typescript-access-modifiers.md)
